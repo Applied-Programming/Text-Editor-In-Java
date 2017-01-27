@@ -8,15 +8,15 @@ import java.util.*;
 
 public class TextEditor extends JFrame implements ActionListener {
 
-    MenuBar mbar;
+    MenuBar menu_bar;
     Menu file, edit, format, font, font1, font2;
-    MenuItem item1, item2, item3, item4;
-    MenuItem item5, item6, item7, item8, item9, item10;
-    MenuItem fname1, fname2, fname3, fname4;
-    MenuItem fstyle1, fstyle2, fstyle3, fstyle4;
-    MenuItem fsize1, fsize2, fsize3, fsize4;
+    MenuItem item1, item2, item3, item4, item5,
+            item6, item7, item8, item9, item10,
+            fname1, fname2, fname3, fname4,
+            fstyle1, fstyle2, fstyle3, fstyle4,
+            fsize1, fsize2, fsize3, fsize4;
 
-    JPanel mainpanel;
+    JPanel main_panel;
     TextArea text;
 
     Font f;
@@ -25,19 +25,15 @@ public class TextEditor extends JFrame implements ActionListener {
         "May", "Jun", "Jul", "Aug",
         "Sep", "Oct", "Nov", "Dec"};
 
-    GregorianCalendar gcalendar;
+    GregorianCalendar gc;
 
     String command = " ";
     String str = " ";
 
-    String str1 = " ", str2 = " ", str3 = " ";
-    String str4 = " ";
-
-    String str6 = " ";
-    String str7 = " ", str8 = " ", str9 = " ";
+    String str1 = " ", str2 = " ", str3 = " ", str4 = " ",
+           str6 = " ", str7 = " ", str8 = " ", str9 = " ";
 
     int len1;
-
     int i = 0;
     int pos1;
     int len;
@@ -46,12 +42,12 @@ public class TextEditor extends JFrame implements ActionListener {
 
         super(str);
 
-        mainpanel = new JPanel();
-        mainpanel = (JPanel) getContentPane();
-        mainpanel.setLayout(new FlowLayout());
+        main_panel = new JPanel();
+        main_panel = (JPanel) getContentPane();
+        main_panel.setLayout(new FlowLayout());
 
-        mbar = new MenuBar();
-        setMenuBar(mbar);
+        menu_bar = new MenuBar();
+        setMenuBar(menu_bar);
 
         file = new Menu("File");
         edit = new Menu("Edit");
@@ -64,7 +60,7 @@ public class TextEditor extends JFrame implements ActionListener {
         file.add(item2 = new MenuItem("Open"));
         file.add(item3 = new MenuItem("Save As..."));
         file.add(item4 = new MenuItem("Exit"));
-        mbar.add(file);
+        menu_bar.add(file);
 
         edit.add(item5 = new MenuItem("Cut"));
         edit.add(item6 = new MenuItem("Copy"));
@@ -72,7 +68,7 @@ public class TextEditor extends JFrame implements ActionListener {
         edit.add(item8 = new MenuItem("Delete"));
         edit.add(item10 = new MenuItem("Select All"));
         edit.add(item9 = new MenuItem("Time/Date"));
-        mbar.add(edit);
+        menu_bar.add(edit);
 
         format.add(font);
         format.add(font1);
@@ -93,7 +89,7 @@ public class TextEditor extends JFrame implements ActionListener {
         font2.add(fsize3 = new MenuItem("18"));
         font2.add(fsize4 = new MenuItem("20"));
 
-        mbar.add(format);
+        menu_bar.add(format);
 
         item1.addActionListener(this);
         item2.addActionListener(this);
@@ -119,7 +115,7 @@ public class TextEditor extends JFrame implements ActionListener {
         fsize4.addActionListener(this);
 
         text = new TextArea(26, 60);
-        mainpanel.add(text);
+        main_panel.add(text);
 
         f = new Font("Monotype Corsiva", Font.PLAIN, 15);
         text.setFont(f);
@@ -165,11 +161,11 @@ public class TextEditor extends JFrame implements ActionListener {
         try {
 
             if (command.equals("Save As...")) {
-                FileDialog dialog1 = new FileDialog(this, "Save As", FileDialog.SAVE);
-                dialog1.setVisible(true);
+                FileDialog fdialog1 = new FileDialog(this, "Save As", FileDialog.SAVE);
+                fdialog1.setVisible(true);
 
-                str7 = dialog1.getDirectory();
-                str8 = dialog1.getFile();
+                str7 = fdialog1.getDirectory();
+                str8 = fdialog1.getFile();
                 str9 = str7 + str8;
 
                 str6 = text.getText();
@@ -213,21 +209,21 @@ public class TextEditor extends JFrame implements ActionListener {
             text.replaceRange(" ", i, i + msg.length());
         }
         if (command.equals("Time/Date")) {
-            gcalendar = new GregorianCalendar();
-            String h = String.valueOf(gcalendar.get(Calendar.HOUR));
-            String m = String.valueOf(gcalendar.get(Calendar.MINUTE));
-            String s = String.valueOf(gcalendar.get(Calendar.SECOND));
-            String date = String.valueOf(gcalendar.get(Calendar.DATE));
-            String mon = months[gcalendar.get(Calendar.MONTH)];
-            String year = String.valueOf(gcalendar.get(Calendar.YEAR));
-            String hms = "Time" + " - " + h + ":" + m + ":" + s + "  Date" + "  -  " + date + "  "+mon+" "+year;
-		int loc = text.getCaretPosition();
+            gc = new GregorianCalendar();
+            String h = String.valueOf(gc.get(Calendar.HOUR));
+            String m = String.valueOf(gc.get(Calendar.MINUTE));
+            String s = String.valueOf(gc.get(Calendar.SECOND));
+            String date = String.valueOf(gc.get(Calendar.DATE));
+            String mon = months[gc.get(Calendar.MONTH)];
+            String year = String.valueOf(gc.get(Calendar.YEAR));
+            String hms = "Time" + " - " + h + ":" + m + ":" + s + "  Date" + "  -  " + date + "  " + mon + " " + year;
+            int loc = text.getCaretPosition();
             text.insert(hms, loc);
         }
         if (command.equals("Courier")) {
 
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
@@ -235,8 +231,8 @@ public class TextEditor extends JFrame implements ActionListener {
             text.setFont(f);
         }
         if (command.equals("Sans Serif")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
@@ -244,8 +240,8 @@ public class TextEditor extends JFrame implements ActionListener {
             text.setFont(f);
         }
         if (command.equals("Monospaced")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
@@ -254,8 +250,8 @@ public class TextEditor extends JFrame implements ActionListener {
         }
 
         if (command.equals("Symbol")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
@@ -264,77 +260,77 @@ public class TextEditor extends JFrame implements ActionListener {
             System.out.println(f.getFamily());
         }
         if (command.equals("Regular")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, Font.PLAIN, fontSize);
+            f = new Font(font_name, Font.PLAIN, fontSize);
             text.setFont(f);
         }
         if (command.equals("Bold")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, Font.BOLD, fontSize);
+            f = new Font(font_name, Font.BOLD, fontSize);
             text.setFont(f);
         }
         if (command.equals("Italic")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, Font.ITALIC, fontSize);
+            f = new Font(font_name, Font.ITALIC, fontSize);
             text.setFont(f);
         }
         if (command.equals("Bold Italic")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, Font.BOLD | Font.ITALIC, fontSize);
+            f = new Font(font_name, Font.BOLD | Font.ITALIC, fontSize);
             text.setFont(f);
         }
 
         if (command.equals("12")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, fontStyle, 12);
+            f = new Font(font_name, fontStyle, 12);
             text.setFont(f);
         }
 
         if (command.equals("14")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, fontStyle, 14);
+            f = new Font(font_name, fontStyle, 14);
             text.setFont(f);
         }
         if (command.equals("18")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, fontStyle, 18);
+            f = new Font(font_name, fontStyle, 18);
             text.setFont(f);
         }
         if (command.equals("20")) {
-            String fontName = f.getName();
-            String fontFamily = f.getFamily();
+            String font_name = f.getName();
+            String font_family = f.getFamily();
             int fontSize = f.getSize();
             int fontStyle = f.getStyle();
 
-            f = new Font(fontName, fontStyle, 20);
+            f = new Font(font_name, fontStyle, 20);
             text.setFont(f);
         }
         if (command.equals("Select All")) {
@@ -351,4 +347,3 @@ public class TextEditor extends JFrame implements ActionListener {
         note.setVisible(true);
     }
 }
-
